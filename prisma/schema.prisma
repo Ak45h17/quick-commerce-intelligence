@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Brand {
+  id        String    @id @default(cuid())
+  name      String
+  slug      String    @unique
+  category  String
+  products  Product[]
+  alerts    Alert[]
+  createdAt DateTime  @default(now())
+}
+
+model Product {
+  id        String     @id @default(cuid())
+  brandId   String
+  brand     Brand      @relation(fields: [brandId], references: [id])
+  name      String
+  sku       String
+  platform  String
+  category  String
+  snapshots Snapshot[]
+  alerts    Alert[]
+  createdAt DateTime   @default(now())
+
+  @@unique([sku, platform])
+}
+
+model Snapshot {
+  id         String   @id @default(cuid())
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+  city       String
+  price      Float
+  inStock    Boolean
+  stockUnits Int?
+  rank       Int?
+  takenAt    DateTime @default(now())
+
+  @@unique([productId, city, takenAt])
+}
+
+model Competitor {
+  id        String   @id @default(cuid())
+  name      String
+  platform  String
+  sku       String
+  price     Float
+  city      String
+  rank      Int?
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, platform, sku, city])
+}
+
+model Alert {
+  id        String   @id @default(cuid())
+  brandId   String
+  brand     Brand    @relation(fields: [brandId], references: [id])
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id])
+  severity  String
+  type      String
+  title     String
+  body      String
+  insight   String
+  platform  String
+  city      String
+  resolved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@unique([brandId, type, title, platform, city])
+}
