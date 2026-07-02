@@ -6,6 +6,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { getCityData } from "@/lib/dashboard-data";
 import { formatPlatform, formatRupees } from "@/lib/format";
 
+export const dynamic = 'force-dynamic'
+
 export default async function CityPage({ params }: { params: { city: string } }) {
   const city = decodeURIComponent(params.city);
   const { rows, priceData, alerts } = await getCityData(city);

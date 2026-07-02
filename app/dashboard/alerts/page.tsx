@@ -5,6 +5,8 @@ import { AlertCard, type AlertView } from "@/components/AlertCard";
 import { AlertSkeleton } from "@/components/Skeletons";
 import { Button } from "@/components/ui/button";
 
+export const dynamic = 'force-dynamic'
+
 const filters = [
   { label: "All", value: "all" },
   { label: "Critical", value: "critical" },

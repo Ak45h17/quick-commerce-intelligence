@@ -5,6 +5,8 @@ import { RankTrendChart } from "@/components/RankTrendChart";
 import { RefreshEngineButton } from "@/components/RefreshEngineButton";
 import { getHeatmapData, getRankTrendData, getRecentAlerts } from "@/lib/dashboard-data";
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardPage() {
   const [alerts, rankTrend, heatmap] = await Promise.all([getRecentAlerts(3), getRankTrendData(), getHeatmapData()]);
 

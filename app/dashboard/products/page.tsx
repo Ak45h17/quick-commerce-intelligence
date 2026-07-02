@@ -5,6 +5,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { getLatestProductRows } from "@/lib/dashboard-data";
 import { formatPlatform, formatRupees } from "@/lib/format";
 
+export const dynamic = 'force-dynamic'
+
 export default async function ProductsPage() {
   const rows = await getLatestProductRows();
 

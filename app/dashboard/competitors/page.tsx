@@ -4,6 +4,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { prisma } from "@/lib/prisma";
 import { formatPlatform, formatRupees } from "@/lib/format";
 
+export const dynamic = 'force-dynamic'
+
 export default async function CompetitorsPage() {
   const competitors = await prisma.competitor.findMany({
     orderBy: [{ city: "asc" }, { price: "asc" }]
